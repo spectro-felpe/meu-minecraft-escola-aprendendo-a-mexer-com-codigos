@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft Web</title>
+  <!-- Carrega a biblioteca 3D (Three.js) e o gerador de terreno (Simplex Noise) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Chama as lógicas traduzidas das suas pastas no GitHub -->
+  <script src="js/physics/collision.js"></script>
+  <script src="js/world/terrain.js"></script>
+  <script src="js/entities/player.js"></script>
+  <script src="js/entities/chicken.js"></script>
+
+  <!-- Executa o loop principal do jogo -->
+  <script>
+    // Inicialização da cena e da câmera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Adiciona iluminação básica
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(10, 20, 15).normalize();
+    scene.add(light);
+
+    // Loop de renderização continuada (60 FPS)
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
